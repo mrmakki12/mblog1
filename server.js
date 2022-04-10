@@ -15,7 +15,9 @@ process.on('uncaughtException', function (err) {
 }); 
 
 // use cors
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000'
+}));
 
 // attach data to req.body
 app.use(express.json());
@@ -104,6 +106,6 @@ app.post('/api/v1/articles/:id/comments', async (req, res, next) => {
 // listen
 const port = process.env.PORT || 3001;
 
-app.listen(5432, () => {
-    console.log(`Server now listening on PORT 5432`);
+app.listen(port, () => {
+    console.log(`Server now listening on PORT ${port}`);
 });
