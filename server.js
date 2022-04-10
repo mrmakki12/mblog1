@@ -10,9 +10,6 @@ const cors = require('cors');
 // express instance 
 const app = express();
 
-process.on('uncaughtException', function (err) {
-    console.log(err);
-}); 
 
 // use cors
 app.use(cors());
