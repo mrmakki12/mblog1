@@ -15,9 +15,7 @@ process.on('uncaughtException', function (err) {
 }); 
 
 // use cors
-app.use(cors({
-    origin: 'http://localhost:3000'
-}));
+app.use(cors());
 
 // attach data to req.body
 app.use(express.json());
