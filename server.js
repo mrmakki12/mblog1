@@ -106,6 +106,6 @@ app.post('/api/v1/articles/:id/comments', async (req, res, next) => {
 // listen
 const port = process.env.PORT || 3001;
 
-app.listen(port, () => {
+app.listen(5432, () => {
     console.log(`Server now listening on PORT ${port}`);
 });
