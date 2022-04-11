@@ -10,6 +10,8 @@ const cors = require('cors');
 // express instance 
 const app = express();
 
+console.log(process.env.PG_HOST);
+
 
 // use cors
 app.use(cors());
