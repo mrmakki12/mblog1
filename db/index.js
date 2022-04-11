@@ -1,5 +1,5 @@
 // require pg to connect to postgres db
-const { Pool } = require('pg');
+const { Pool } = require('pg'); 
 
 const pool = new Pool({
     user: 'rfllaxqjoxpkdw',
