@@ -53,7 +53,7 @@ app.get('/api/v1/articles/:id', async (req, res, next) => {
         // handle error
     } catch (err) {
 
-        next(err);
+        next(err); 
     }
 });
 
