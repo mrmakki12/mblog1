@@ -12,7 +12,7 @@ const { Pool, Client } = require('pg');
 
 
 var conString = "postgres://rfllaxqjoxpkdw:f994f0ad163cd7fca5565264067f51a3fddc55d18fcfccab776eed0f38a49a39@ec2-34-207-12-160.compute-1.amazonaws.com:5432/ddch46khuff2fa";
-var client = new pg.Client(conString);
+var client = new Client(conString);
 client.connect();
 
 module.exports = {
