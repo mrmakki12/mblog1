@@ -25,9 +25,7 @@ app.get('/api/v1/articles', async (req, res, next) => {
         const results =  await db.query('SELECT * FROM articles;');
 
         // send results
-        res.status(200).json({
-            results: results.rows
-        });
+        res.status(200).send(results);
 
         // handle error
     } catch (err) {
