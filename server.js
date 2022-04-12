@@ -11,7 +11,7 @@ const cors = require('cors');
 const app = express();
 
 // use cors
-app.use(cors());
+app.use(cors({origin: '*'}));
 
 // attach data to req.body
 app.use(express.json());
