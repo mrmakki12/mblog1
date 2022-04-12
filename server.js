@@ -26,7 +26,7 @@ app.get('/api/v1/articles', async (req, res, next) => {
 
         // send results
         res.status(200).json({
-            results
+            results: results.rows
         });
 
         // handle error
