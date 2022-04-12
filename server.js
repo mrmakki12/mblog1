@@ -17,12 +17,12 @@ app.use(cors({origin: '*'}));
 app.use(express.json());
 
 // get all articles 
-app.get('/api/v1/articles', async (req, res, next) => {
+app.get('/api/v1/articles', (req, res, next) => {
 
     try {
 
         // query database
-        const results =  await db.query('SELECT * FROM articles;');
+        const results = db.query('SELECT * FROM articles;');
 
         // send results
         res.send(results);
