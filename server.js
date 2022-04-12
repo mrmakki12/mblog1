@@ -25,7 +25,7 @@ app.get('/api/v1/articles', async (req, res, next) => {
     try {
 
         // query database
-        const results = await db.query('SELECT * FROM articles;');
+        const results = db.query('SELECT * FROM articles;');
 
         // send results
         res.status(200).json({
@@ -45,7 +45,7 @@ app.get('/api/v1/articles/:id', async (req, res, next) => {
     try {
 
         // query database
-        const article = await db.query(`SELECT * FROM articles WHERE id = $1;`, [req.params.id]);
+        const article = db.query(`SELECT * FROM articles WHERE id = $1;`, [req.params.id]);
 
         // send back data
         res.status(200).json({
@@ -65,7 +65,7 @@ app.get('/api/v1/articles/:id/comments', async (req, res, next) => {
     try {
 
         // query database
-        const comments = await db.query(`SELECT * FROM comments WHERE article_id = $1;`, [req.params.id]);
+        const comments = db.query(`SELECT * FROM comments WHERE article_id = $1;`, [req.params.id]);
 
         // send back data
         res.status(200).json({
@@ -85,7 +85,7 @@ app.post('/api/v1/articles/:id/comments', async (req, res, next) => {
     try {
 
         // post comment in database
-        const comment = await db.query(`INSERT INTO comments (article_id, author, text) 
+        const comment = db.query(`INSERT INTO comments (article_id, author, text) 
         VALUES ($1, $2, $3) returning *;`, [req.body.article_id, req.body.author, req.body.text]);
 
         // send comment back
