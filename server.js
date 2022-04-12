@@ -33,12 +33,12 @@ app.get('/api/v1/articles', async (req, res, next) => {
 app.get('/api/v1/articles/:id', async (req, res, next) => {
 
     // query database
-    db.query(`SELECT * FROM articles WHERE id = $1;`, [req.params.id], (err, result) => {
+    db.query(`SELECT * FROM articles WHERE id = ?;`, req.params.id, (err, result) => {
         if(err) {
             console.log(err);
         }
         res.send(result);
-    });
+    }); 
 
 });
 
