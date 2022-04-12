@@ -10,9 +10,6 @@ const cors = require('cors');
 // express instance 
 const app = express();
 
-console.log(process.env.PG_HOST);
-
-
 // use cors
 app.use(cors());
 
@@ -20,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 // get all articles 
-app.get('/api/v1/articles', async (req, res, next) => {
+app.get('/api/v1/articles', (req, res, next) => {
 
     try {
 
