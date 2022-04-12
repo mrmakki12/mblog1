@@ -32,21 +32,14 @@ app.get('/api/v1/articles', async (req, res, next) => {
 // get individual article 
 app.get('/api/v1/articles/:id', async (req, res, next) => {
 
-    try {
+    // query database
+    db.query(`SELECT * FROM articles WHERE id = $1;`, [req.params.id], (err, result) => {
+        if(err) {
+            console.log(err);
+        }
+        res.send(result);
+    });
 
-        // query database
-        const article = db.query(`SELECT * FROM articles WHERE id = $1;`, [req.params.id]);
-
-        // send back data
-        res.status(200).json({
-            article: article
-        });
-
-        // handle error
-    } catch (err) {
-
-        next(err); 
-    }
 });
 
 // get article's comments
