@@ -60,7 +60,12 @@ app.post('/api/v1/articles/:id/comments', async (req, res, next) => {
 
         // post comment in database
         db.query(`INSERT INTO comments (article_id, user_name, comments, created) 
-        VALUES (?, ?, ?) returning *;`, [req.body.article_id, req.body.user_name, req.body.comments, req.body.created]);
+        VALUES (?, ?, ?) returning *;`, [req.body.article_id, req.body.user_name, req.body.comments, req.body.created], (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+            res.send(result);
+        });
 });
 
 // listen
