@@ -84,7 +84,7 @@ app.post('/api/v1/articles/create', async (req, res, next) => {
 app.put('/api/v1/articles/:id/edit', async (req, res, next) => {
     // update article
     db.query(`UPDATE TABLE articles SET created = ?, title = ?, subtitle = ? mardown = ?
-    WHERE id = ?`, [new Date().toISOString(), req.body.title, req.body.subtitle, req.body.markdown], (err, result) => {
+    WHERE id = ?`, [new Date().toISOString(), req.body.title, req.body.subtitle, req.body.markdown, req.params.id], (err, result) => {
         if(err) {
             console.log(err);
         }
