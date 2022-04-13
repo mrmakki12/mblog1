@@ -68,6 +68,30 @@ app.post('/api/v1/articles/:id/comments', async (req, res, next) => {
         });
 });
 
+app.post('/api/v1/articles/create', async (req, res, next) => {
+
+    // post article in database
+    db.query(`INSERT INTO articles (user_name, created, title, subtitle, mardown) 
+    VALUES (?, ?, ?, ?)`, [req.body.user_name, req.body.created, req.body.title, req.body.subtitle, req.body.mardown], (err, result) => {
+        if(err) {
+            console.log(err);
+        }
+        res.send(result);
+    });
+});
+
+app.put('/api/v1/aritcles/:id/edit', async (req, res, next) => {
+
+    // update article
+    db.query(`UPDATE TABLE articles SET created = ?, title = ?, subtitle = ? mardown = ?
+    WHERE id = ?`, [req.params.id], (err, result) => {
+        if(err) {
+            console.log(err);
+        }
+        res.send(result);
+    })
+});
+
 // listen
 const port = process.env.PORT || 3001;
 
