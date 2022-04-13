@@ -45,43 +45,23 @@ app.get('/api/v1/articles/:id', async (req, res, next) => {
 // get article's comments
 app.get('/api/v1/articles/:id/comments', async (req, res, next) => {
 
-    try {
+    // query database
+    db.query(`SELECT * FROM comments WHERE article_id = ?;`, req.params.id, (err, result) => {
+        if(err) {
+            console.log(err);
+        }
+        res.send(result);
+    });
 
-        // query database
-        const comments = db.query(`SELECT * FROM comments WHERE article_id = $1;`, [req.params.id]);
-
-        // send back data
-        res.status(200).json({
-            comments: comments
-        });
-
-        // handle error
-    } catch (err) {
-
-        next(err);
-    }
 });
 
 // add comment 
 app.post('/api/v1/articles/:id/comments', async (req, res, next) => {
 
-    try {
-
         // post comment in database
-        const comment = db.query(`INSERT INTO comments (article_id, author, text) 
-        VALUES ($1, $2, $3) returning *;`, [req.body.article_id, req.body.author, req.body.text]);
-
-        // send comment back
-        res.status(201).json({
-            comment
-        });
-
-        // handle error
-    } catch (err) {
-        
-        next(err);
-    } 
-})
+        db.query(`INSERT INTO comments (article_id, user_name, comments, created) 
+        VALUES (?, ?, ?) returning *;`, [req.body.article_id, req.body.user_name, req.body.comments]);
+});
 
 // listen
 const port = process.env.PORT || 3001;
