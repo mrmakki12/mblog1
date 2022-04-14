@@ -60,7 +60,25 @@ passport.use(new LocalStrategy(
             return done(null, user);
         })
     }
-))
+));
+
+// serialize user
+passport.serializeUser((user, done) => {
+    done(null, user.username);
+});
+
+// deserialize user
+passport.deserializeUser((username, done) => {
+    db.query(`SELECT * FROM users WHERE username = ?`, username, (err, user) => {
+        if (err) return done(err);
+        done(null, user);
+    });
+});
+
+// login
+app.post('/api/v1/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {
+    res.render('/profile', { user: req.user });
+});
 
 // use cors
 app.use(cors({origin: '*'}));
