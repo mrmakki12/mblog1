@@ -1,93 +1,46 @@
 // express
 const express = require('express');
 const app = express();
-
 // environment variables
 require('dotenv').config();
-
+// cookie parser
+const cookieParser = require('cookie-parser');
 // data base connector
 const db = require('./db');
-
 // cors
 const cors = require('cors');
-
 // sessions
 const session = require('express-session');
-
-// passport and passport local
+// passport
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-
-// session management and authentication section
-// create session
-app.use(
-    session({
-        secret: process.env.SECRET,
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            maxAge: 1000 * 60 * 60 * 24
-        }
-    })
-);
-
-// initalize passport
-app.use(passport.initialize());
-
-// implement session
-app.use(passport.session());
-
-// testing onlyu
-app.get('/users', (req, res) => {
-    db.query(`SELECT * FROM users WHERE username = 'TyreeckGoat'`, (err, result) => {
-        if(err) {
-            console.log(err)
-        }
-        res.send(result);
-    })
-})
-
-// implement local strategy
-passport.use(new LocalStrategy(
-    function(username, password, done) {
-        db.query(`SELECT * FROM users WHERE username = ?`, username, (err, user) => {
-            if(err) {
-                return done(err);
-            }
-            if(!user) {
-                return done(null, false);
-            }
-            if(user.password != password) {
-                return done(null, false);
-            }
-            return done(null, user);
-        })
-    }
-));
-
-// serialize user
-passport.serializeUser((user, done) => {
-    done(null, user.username);
-});
-
-// deserialize user
-passport.deserializeUser((username, done) => {
-    db.query(`SELECT * FROM users WHERE username = ?`, username, (err, user) => {
-        if (err) return done(err);
-        done(null, user);
-    });
-});
-
-// login
-app.post('/api/v1/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {
-    res.render('/profile', { user: req.user });
-});
+const { prependListener } = require('./db');
+require('./passport-config')(passport);
 
 // use cors
-app.use(cors({origin: '*'}));
+app.use(cors({
+    origin: '*',
+    credentials: true
+}));
 
 // attach data to req.body
 app.use(express.json());
+
+// session
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
+
+// cookie parser
+app.use(cookieParser(process.env.SECRET));
+
+
+// login
+app.post('/api/v1/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {
+    res.send({user: req.user})
+});
+
 
 // get all articles 
 app.get('/api/v1/articles', async (req, res, next) => {
