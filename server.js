@@ -20,19 +20,19 @@ const LocalStrategy = require('passport-local').Strategy;
 
 // session management and authentication section
 // create session
-app.use(
-    session({
-        secret: process.env.SECRET,
-        resave: false,
-        saveUninitialized: false
-    })
-);
+// app.use(
+//     session({
+//         secret: process.env.SECRET,
+//         resave: false,
+//         saveUninitialized: false
+//     })
+// );
 
-// initalize passport
-app.use(passport.initialize());
+// // initalize passport
+// app.use(passport.initialize());
 
-// implement session
-app.use(passport.session());
+// // implement session
+// app.use(passport.session());
 
 // testing onlyu
 app.get('/users', (req, res) => {
