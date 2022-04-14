@@ -72,7 +72,7 @@ app.post('/api/v1/articles/:id/comments', async (req, res, next) => {
 app.post('/api/v1/articles/create', async (req, res, next) => {
     // post article in database
     db.query(`INSERT INTO articles (user_name, created, title, subtitle, mardown) 
-    VALUES (?, ?, ?, ?)`, [req.body.user_name, req.body.created, req.body.title, req.body.subtitle, req.body.markdown], (err, result) => {
+    VALUES (?, ?, ?, ?)`, ['TyreeckGoat', new Date().toISOString, req.body.title, req.body.subtitle, req.body.markdown], (err, result) => {
         if(err) {
             console.log(err);
         }
