@@ -1,14 +1,66 @@
 // express
 const express = require('express');
+const app = express();
+
 // environment variables
 require('dotenv').config();
+
 // data base connector
 const db = require('./db');
+
 // cors
 const cors = require('cors');
 
-// express instance 
-const app = express();
+// sessions
+const session = require('express-session');
+
+// passport and passport local
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+// session management and authentication section
+// create session
+app.use(
+    session({
+        secret: process.env.SECRET,
+        resave: false,
+        saveUninitialized: false
+    })
+);
+
+// initalize passport
+app.use(passport.initialize());
+
+// implement session
+app.use(passport.session());
+
+// testing onlyu
+app.get('/users', (req, res) => {
+    db.query(`SELECT * FROM users WHERE username = 'TyreeckGoat'`, (err, result) => {
+        if(err) {
+            console.log(err)
+        }
+        res.send(result);
+    })
+})
+
+// implement local strategy
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+        db.query(`SELECT * FROM users WHERE username = ?`, username, (err, user) => {
+            if(err) {
+                return done(err);
+            }
+            if(!user) {
+                return done(null, false);
+            }
+            if(user.password != password) {
+                return done(null, false);
+            }
+            return done(null, user);
+        })
+    }
+))
 
 // use cors
 app.use(cors({origin: '*'}));
@@ -83,6 +135,7 @@ app.post('/api/v1/articles/create', async (req, res, next) => {
 
 // edit article
 app.put('/api/v1/articles/:id/edit', async (req, res, next) => {
+
     // update article
     db.query(`UPDATE articles SET created = ?, title = ?, subtitle = ?, mardown = ?
     WHERE id = ?;`, [new Date().toISOString().substring(0, 10), req.body.title, req.body.subtitle, req.body.markdown, req.params.id], (err, result) => {
