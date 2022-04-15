@@ -39,7 +39,7 @@ app.use(session({
 
 
 // login
-app.post('/api/v1/login', (req, res) => {
+app.post('/api/v1/login', async (req, res) => {
 
     // get input from front
     const { username, password } = req.body;
