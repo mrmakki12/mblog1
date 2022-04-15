@@ -3,16 +3,12 @@ const express = require('express');
 const app = express();
 // environment variables
 require('dotenv').config();
-// cookie parser
-const cookieParser = require('cookie-parser');
 // data base connector
 const db = require('./db');
 // cors
 const cors = require('cors');
 // sessions
 const session = require('express-session');
-// passport
-const passport = require('passport');
 // bycrypt
 const bcrypt = require('bcrypt');
 
@@ -41,44 +37,51 @@ app.use(session({
     }
 }));
 
-// cookie parser
-app.use(cookieParser(process.env.SECRET));
-
-// initialize passport and session
-app.use(passport.initialize());
-app.use(passport.session());
-require('./passport-config')(passport);
 
 // login
 app.post('/api/v1/login', (req, res) => {
 
-    passport.authenticate('local', (err, user, info) => {
-        if (err) throw err;
-        if(!user) {
-            res.send('No User Exists')
-        } else {
-            req.logIn(user, err => {
-                if (err) throw err;
-                res.send('Authenticated');
-                console.log(req.user);
-            })
-        }
+    // get input from front
+    const { username, password } = req.body;
+
+    // find user 
+    db.query(`SELECT username from users WHERE username = ?`, username, async (user, err) => {
+        if(err) throw err;
+        if(user) res.status(404).send({message: 'No Such User Exists!'});
         
+        // user exist compare passwords
+        const matchedPassword = await bcrypt.compare(password, user.password);
+
+        // incorrect password
+        if(!matchedPassword) res.redirect('/');
+
+        // correct password
+        req.session.user = {
+            username
+        }
+
+        res.redirect('/profile');
     })
 })
 
 // register 
 app.post('/api/v1/register', async (req, res) => {
 
-    // check if user exists
-    db.query(`SELECT * FROM users WHERE username = ?`, req.body.username, async (err, result) => {
-        if(err) throw err;
-        if(result) {
-            res.send('User Already Exists');
-        }
-        const hashPassword = await bcrypt.hash(req.body.hashPassword, 10);
-        db.query(`INSERT INTO users (username, hashPassword) VALUES (?, ?)`, [req.body.username, hashPassword]);
-    });
+    // get input from front
+    const { username, password } = req.body;
+    // check if user already exist
+    db.query(`SELECT username from users WHERE username = ?`, username, (user, err) => {
+        if (err) throw err;
+        if(user) res.status(409).send({message: 'User Already Exists!'});
+
+        // create user
+        const hashedPassword = await bcrypt.hash(password, 3);
+        db.query(`INSERT INTO users (username, hashPassword) values` [username, hashedPassword], (err) => {
+            if (err) throw err;
+            res.redirect('/profile');
+        });
+
+    })
 })
 
 
