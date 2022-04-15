@@ -68,12 +68,12 @@ app.post('/api/v1/login', (req, res) => {
         // password doesn't match
         if(user.password !== password) {
             res.status(403).json({message: "Bad Credentials"})
-        }
+        } else {
         // user found
-        req.session.user = { user } ;
-        console.log(req.session, user);
-        res.send({message: 'You are logged in' , session: req.session.user})
-    
+            req.session.user = { user } ;
+            console.log(req.session, user);
+            res.send({message: 'You are logged in' , session: req.session.user})
+        }
         // res.redirect('/profile');
     })
     
