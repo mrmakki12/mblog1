@@ -46,7 +46,8 @@ app.use(passport.session());
 require('./passport-config')(passport);
 
 // login
-app.post('api/v1/login', (req, res) => {
+app.post('/api/v1/login', (req, res) => {
+    
     passport.authenticate('local', (err, user, info) => {
         if (err) throw err;
         if(!user) {
