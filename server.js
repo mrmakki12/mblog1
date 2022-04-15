@@ -61,7 +61,7 @@ app.post('/api/v1/register', async (req, res) => {
     // get input from front
     const { username, password } = req.body;
     // check if user already exist
-    db.query(`SELECT username from users WHERE username = ?`, username, (user, err) => {
+    db.query(`SELECT username from users WHERE username = ?`, username, async (user, err) => {
         if (err) throw err;
         if(user) res.status(409).send({message: 'User Already Exists!'});
 
