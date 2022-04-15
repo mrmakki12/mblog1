@@ -62,6 +62,7 @@ app.post('/api/v1/login', (req, res) => {
         if(!username) res.send({message: "User Doesn't Exist Lil-bih"});
         req.session.username = username;
         console.log(req.session);
+        res.send({message: 'You are logged in' })
         // res.redirect('/profile');
     })
     
