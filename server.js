@@ -14,13 +14,8 @@ const mysql = require('mysql');
 const MySQLStore = require('express-mysql-session')(session);
 // bycrypt
 const bcrypt = require('bcrypt');
-const { prependListener } = require('./db');
-
 // use cors
-app.use(cors({
-    origin: '*',
-    // credentials: true
-}));
+app.use(cors());
 
 app.all('/*', (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -56,7 +51,7 @@ app.use(session({
 
 
 // login
-app.post('/api/v1/login', async (req, res) => {
+app.post('/api/v1/login', (req, res) => {
 
     // get input from front
     console.log(req.body)
