@@ -19,7 +19,7 @@ const { prependListener } = require('./db');
 // use cors
 app.use(cors({
     origin: '*',
-    credentials: true
+    // credentials: true
 }));
 
 app.all('/*', (req, res, next) => {
