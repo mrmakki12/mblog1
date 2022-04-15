@@ -66,7 +66,7 @@ app.post('/api/v1/login', (req, res) => {
             res.status(404).send({message: "User Doesn't Exist Lil-bih"})
         }
         // password doesn't match
-        if(user.password !== password) {
+        if(user.hashPassword !== password) {
             res.status(403).json({message: "Bad Credentials", user})
         } else {
         // user found
