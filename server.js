@@ -29,6 +29,7 @@ app.all('/*', (req, res, next) => {
 
 // attach data to req.body
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 // session
 app.use(session({
@@ -47,7 +48,7 @@ require('./passport-config')(passport);
 
 // login
 app.post('/api/v1/login', (req, res) => {
-    
+
     passport.authenticate('local', (err, user, info) => {
         if (err) throw err;
         if(!user) {
