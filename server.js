@@ -56,6 +56,8 @@ app.post('/api/v1/login', (req, res) => {
     // get input from front
     const { username, password } = req.body;
 
+    console.log(username, password);
+
     // find user 
     db.query(`SELECT * from users WHERE username = ?`, username, (err, user) => {
         if(err) throw err;
