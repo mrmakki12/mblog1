@@ -9,8 +9,12 @@ const db = require('./db');
 const cors = require('cors');
 // sessions
 const session = require('express-session');
+// mysql and its store
+const mysql = require('mysql');
+const MySQLStore = require('express-mysql-session')(session);
 // bycrypt
 const bcrypt = require('bcrypt');
+const { prependListener } = require('./db');
 
 // use cors
 app.use(cors({
@@ -27,6 +31,18 @@ app.all('/*', (req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+// create session store
+const options = {
+    host: process.env.HOST,
+    port: process.env.PORT,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
+    createDatabaseTable: true,
+}
+const connection = mysql.createConnection(options);
+const sessionStore = new MySQLStore({connectionLimit: 10}, connection);
+
 // session
 app.use(session({
     secret: process.env.SECRET,
@@ -34,7 +50,8 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24
-    }
+    },
+    store: sessionStore
 }));
 
 
@@ -50,7 +67,7 @@ app.post('/api/v1/login', async (req, res) => {
         if(!username) res.send({message: "User Doesn't Exist Lil-bih"});
         req.session.username = username;
         console.log(req.session);
-        res.redirect('/profile');
+        // res.redirect('/profile');
     })
     
 })
