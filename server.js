@@ -46,17 +46,24 @@ app.use(passport.session());
 require('./passport-config')(passport);
 
 // login
-app.post('/api/v1/login', passport.authenticate('local', (err, user, info ) => {
-    if(err) throw err;
-    if(!user) res.send('No User');
-    req.logIn(user, err => {
-        if(err) throw err;
-        res.send('Login successful');
+app.post('api/v1/login', (req, res) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) throw err;
+        if(!user) {
+            res.send('No User Exists')
+        } else {
+            req.logIn(user, err => {
+                if (err) throw err;
+                res.send('Authenticated');
+                console.log(req.user);
+            })
+        }
+        
     })
-}));
+})
 
 // register 
-app.post('/api/v1/register', (req, res) => {
+app.post('/api/v1/register', async (req, res) => {
 
     // check if user exists
     db.query(`SELECT * FROM users WHERE username = ?`, req.body.username, async (err, result) => {
