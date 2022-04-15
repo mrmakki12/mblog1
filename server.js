@@ -35,7 +35,10 @@ app.use(express.urlencoded({extended: true}));
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24
+    }
 }));
 
 // cookie parser
