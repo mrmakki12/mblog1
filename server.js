@@ -54,18 +54,24 @@ app.use(session({
 app.post('/api/v1/login', (req, res) => {
 
     // get input from front
-    console.log(req.body)
+    const { username, password } = req.body;
 
     // find user 
-    db.query(`SELECT * from users WHERE username = 'TyreeckGoat'`, (err, user) =>{
+    db.query(`SELECT * from users WHERE username = ?`, username, (err, user) => {
         if(err) throw err;
+        // user not found
         if(!user)  {
-            res.send({message: "User Doesn't Exist Lil-bih"})
-        } else {
-            req.session.user = { user } ;
-            console.log(req.session, user);
-            res.send({message: 'You are logged in' , session: req.session.user})
+            res.status(404).send({message: "User Doesn't Exist Lil-bih"})
         }
+        // password doesn't match
+        if(user.password !== password) {
+            res.status(403).json({message: "Bad Credentials"})
+        }
+        // user found
+        req.session.user = { user } ;
+        console.log(req.session, user);
+        res.send({message: 'You are logged in' , session: req.session.user})
+    
         // res.redirect('/profile');
     })
     
