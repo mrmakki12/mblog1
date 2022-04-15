@@ -14,7 +14,8 @@ const session = require('express-session');
 // passport
 const passport = require('passport');
 const { prependListener } = require('./db');
-require('./passport-config')(passport);
+// bycrypt
+const bcrypt = require('bcrypt');
 
 // use cors
 app.use(cors({
@@ -35,11 +36,34 @@ app.use(session({
 // cookie parser
 app.use(cookieParser(process.env.SECRET));
 
+// initialize passport and session
+app.use(passport.initialize());
+app.use(passport.session());
+require('./passport-config')(passport);
 
 // login
-app.post('/api/v1/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {
-    res.send({user: req.user})
-});
+app.post('/api/v1/login', passport.authenticate('local', (err, user, info ) => {
+    if(err) throw err;
+    if(!user) res.send('No User');
+    req.logIn(user, err => {
+        if(err) throw err;
+        res.send('Login successful');
+    })
+}));
+
+// register 
+app.post('/api/v1/register', (req, res) => {
+
+    // check if user exists
+    db.query(`SELECT * FROM users WHERE username = ?`, req.body.username, async (err, result) => {
+        if(err) throw err;
+        if(result) {
+            res.send('User Already Exists');
+        }
+        const hashPassword = await bcrypt.hash(req.body.hashPassword, 10);
+        db.query(`INSERT INTO users (username, hashPassword) VALUES (?, ?)`, [req.body.username, hashPassword]);
+    });
+})
 
 
 // get all articles 
