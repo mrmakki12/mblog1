@@ -42,26 +42,17 @@ app.use(session({
 app.post('/api/v1/login', async (req, res) => {
 
     // get input from front
-    const { username, password } = req.body;
+    console.log(req.body)
 
     // find user 
-    db.query(`SELECT username from users WHERE username = ?`, username, async (user, err) => {
+    db.query(`SELECT username from users WHERE username = 'TyreeckGoat'`, (err, username) =>{
         if(err) throw err;
-        if(user) res.status(404).send({message: 'No Such User Exists!'});
-        
-        // user exist compare passwords
-        const matchedPassword = await bcrypt.compare(password, user.password);
-
-        // incorrect password
-        if(!matchedPassword) res.redirect('/');
-
-        // correct password
-        req.session.user = {
-            username
-        }
-
+        if(!username) res.send({message: "User Doesn't Exist Lil-bih"});
+        req.session.username = username;
+        console.log(req.session);
         res.redirect('/profile');
     })
+    
 })
 
 // register 
@@ -78,7 +69,7 @@ app.post('/api/v1/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 3);
         db.query(`INSERT INTO users (username, hashPassword) values` [username, hashedPassword], (err) => {
             if (err) throw err;
-            res.redirect('/profile');
+            res.redirect('/');
         });
 
     })
