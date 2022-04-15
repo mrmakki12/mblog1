@@ -24,19 +24,19 @@ app.all('/*', (req, res, next) => {
 
 // attach data to req.body
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+// app.use(express.urlencoded({extended: true}));
 
 // create session store
-const options = {
-    host: process.env.HOST,
-    port: process.env.PORT,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE,
-    createDatabaseTable: true,
-}
-const connection = mysql.createConnection(options);
-const sessionStore = new MySQLStore({connectionLimit: 10}, connection);
+// const options = {
+//     host: process.env.HOST,
+//     port: process.env.PORT,
+//     user: process.env.USER,
+//     password: process.env.PASSWORD,
+//     database: process.env.DATABASE,
+//     createDatabaseTable: true,
+// }
+// const connection = mysql.createConnection(options);
+// const sessionStore = new MySQLStore({connectionLimit: 10}, connection);
 
 // session
 app.use(session({
@@ -46,7 +46,7 @@ app.use(session({
     cookie: {
         maxAge: 1000 * 60 * 60 * 24
     },
-    store: sessionStore
+    // store: sessionStore
 }));
 
 
