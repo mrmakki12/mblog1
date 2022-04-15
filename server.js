@@ -13,7 +13,6 @@ const cors = require('cors');
 const session = require('express-session');
 // passport
 const passport = require('passport');
-const { prependListener } = require('./db');
 // bycrypt
 const bcrypt = require('bcrypt');
 
@@ -22,6 +21,11 @@ app.use(cors({
     origin: '*',
     credentials: true
 }));
+
+app.all('/*', (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+});
 
 // attach data to req.body
 app.use(express.json());
