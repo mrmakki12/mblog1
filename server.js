@@ -57,12 +57,15 @@ app.post('/api/v1/login', (req, res) => {
     console.log(req.body)
 
     // find user 
-    db.query(`SELECT username from users WHERE username = 'TyreeckGoat'`, (err, username) =>{
+    db.query(`SELECT * from users WHERE username = 'TyreeckGoat'`, (err, user) =>{
         if(err) throw err;
-        if(!username) res.send({message: "User Doesn't Exist Lil-bih"});
-        req.session.username = username;
-        console.log(req.session);
-        res.send({message: 'You are logged in' })
+        if(!user)  {
+            res.send({message: "User Doesn't Exist Lil-bih"})
+        } else {
+            req.session.user = { user } ;
+            console.log(req.session, user);
+            res.send({message: 'You are logged in' })
+        }
         // res.redirect('/profile');
     })
     
