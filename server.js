@@ -72,9 +72,8 @@ app.post('/api/v1/login', (req, res) => {
         // user found
         req.session.user = { user } ;
         console.log(req.session, user);
-        res.send({message: 'You are logged in' , session: req.session.user})
+        res.render({message: 'You are logged in' , user: req.session.user})
         }
-        res.redirect('/profile');
     })
     
 })
