@@ -89,15 +89,14 @@ app.post('/api/v1/register', async (req, res) => {
     db.query(`SELECT username from users WHERE username = ?`, username, async (user, err) => {
         if (err) throw err;
         if(user) res.status(409).json({message: 'User Already Exists!'});
+    });
 
-        // create user
-        const hashedPassword = await bcrypt.hash(password, 3);
-        db.query(`INSERT INTO users (username, hashPassword) values` [username, hashedPassword], (err) => {
-            if (err) throw err;
-            res.status(200).json({message: 'User Created!'});
-        });
-
-    })
+    // create user
+    const hashedPassword = await bcrypt.hash(password, 3);
+    db.query(`INSERT INTO users (username, hashPassword) values` [username, hashedPassword], (err) => {
+        if (err) throw err;
+        res.status(200).json({message: 'User Created!'});
+    });
 })
 
 
