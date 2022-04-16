@@ -56,8 +56,6 @@ app.post('/api/v1/login', (req, res) => {
     // get input from front
     const { username, password } = req.body;
 
-    console.log(username, password);
-
     // find user 
     db.query(`SELECT * from users WHERE username = ?`, username, async (err, user) => {
         if(err) throw err;
@@ -67,7 +65,7 @@ app.post('/api/v1/login', (req, res) => {
         }
         // compare passwords 
         const matchedPassword = await bcrypt.compare(password, user[0].hashPassword);
-        console.log(user)
+        console.log(user[0].hashPassword)
         // password doesn't match
         if(!matchedPassword) {
             res.status(403).json({message: "Bad Credentials", user, matchedPassword})
