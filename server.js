@@ -65,7 +65,7 @@ app.post('/api/v1/login', (req, res) => {
         // compare passwords 
         const matchedPassword = await bcrypt.compare(password, user[0].hashPassword);
         // password doesn't match
-        if(!matchedPassword) {
+        if(matchedPassword === false) {
             res.status(403).json({message: "Bad Credentials", user, matchedPassword})
         } else {
         // user found
