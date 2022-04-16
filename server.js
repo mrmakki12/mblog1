@@ -63,6 +63,7 @@ app.post('/api/v1/login', (req, res) => {
             res.status(404).json({message: "User Not Found"})
         }
         // compare passwords 
+        console.log(user)
         const matchedPassword = await bcrypt.compare(password, user[0].hashPassword);
         // password doesn't match
         if(matchedPassword === false) {
