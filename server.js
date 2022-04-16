@@ -64,6 +64,7 @@ app.post('/api/v1/login', (req, res) => {
         }
         // compare passwords 
         const hashedPassword = await bcrypt.hash(password, 3);
+        console.log(hashedPassword, user[0].hashPassword);
         const matchedPassword = await bcrypt.compare(password, hashedPassword);
         // password doesn't match
         if(!matchedPassword) {
