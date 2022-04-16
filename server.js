@@ -63,7 +63,7 @@ app.post('/api/v1/login', (req, res) => {
         if(err) throw err;
         // user not found
         if(!user)  {
-            res.status(404).send({message: "User Doesn't Exist Lil-bih"})
+            res.status(404).json({message: "User Not Found"})
         }
         // password doesn't match
         if(user[0].hashPassword !== password) {
@@ -72,7 +72,7 @@ app.post('/api/v1/login', (req, res) => {
         // user found
         req.session.user = { user } ;
         console.log(req.session, user);
-        res.send({message: 'You are logged in' , user: req.session.user})
+        res.status(200).json({message: 'Success' , user: req.session.user})
         }
     })
     
@@ -86,13 +86,13 @@ app.post('/api/v1/register', async (req, res) => {
     // check if user already exist
     db.query(`SELECT username from users WHERE username = ?`, username, async (user, err) => {
         if (err) throw err;
-        if(user) res.status(409).send({message: 'User Already Exists!'});
+        if(user) res.status(409).json({message: 'User Already Exists!'});
 
         // create user
         const hashedPassword = await bcrypt.hash(password, 3);
         db.query(`INSERT INTO users (username, hashPassword) values` [username, hashedPassword], (err) => {
             if (err) throw err;
-            res.redirect('/');
+            res.status(200).json({message: 'User Created!'});
         });
 
     })
