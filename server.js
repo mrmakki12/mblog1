@@ -74,7 +74,7 @@ app.post('/api/v1/login', (req, res) => {
         console.log(req.session, user);
         res.send({message: 'You are logged in' , session: req.session.user})
         }
-        // res.redirect('/profile');
+        res.redirect('/profile');
     })
     
 })
