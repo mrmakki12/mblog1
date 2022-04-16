@@ -81,11 +81,12 @@ app.post('/api/v1/login', (req, res) => {
 })
 
 // register 
-app.post('/api/v1/register', async (req, res) => {
+app.post('/api/v1/register', async (req, res, next) => {
 
     // get input from front
     const { username, password } = req.body;
-    // check if user already exist
+    try {
+        // check if user already exist
     db.query(`SELECT username from users WHERE username = ?`, username, async (user, err) => {
         if (err) throw err;
         if(user) { 
@@ -100,6 +101,10 @@ app.post('/api/v1/register', async (req, res) => {
         }   
 
     })
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
 })
 
 
