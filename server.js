@@ -29,10 +29,10 @@ app.use(express.urlencoded({extended: true}));
 // create session store
 const connection = mysql.createPool({
     host: process.env.HOST,
-    port: process.env.PORT,
+    port: 3306,
     user: process.env.USER,
     password: process.env.PASSWORD,
-    database: process.env.DATABASE,
+    database: process.env.DATABASE, 
     createDatabaseTable: true,
 });
 const sessionStore = new MySQLStore({connectionLimit: 10}, connection);
