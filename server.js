@@ -87,9 +87,17 @@ app.post('/api/v1/register', async (req, res, next) => {
     const { username, password } = req.body;
 
     try {
+        // if user already exists
         db.query(`SELECT username FROM users WHERE username = ?`, username, (err, user) => {
             if (err) next(err);
-            res.json(user);
+            if (!user) res.status(404).json({message: 'User Not Found'});
+        });
+
+        // create user 
+        const hashedPassword = await bcrypt.hash(password, 3);
+        db.query(`INSERT INTO users (username, hashPassword) VALUES (?, ?)`, [username, hashedPassword], (err, user) => {
+            if (err) next(err);
+            res.status(200).json(user);
         })
     } catch (err) {
         next(err);
