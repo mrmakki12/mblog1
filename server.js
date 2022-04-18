@@ -26,7 +26,7 @@ app.all('/*', (req, res, next) => {
 
 // attach data to req.body
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+// app.use(express.urlencoded({extended: true}));
 
 // create session store
 const connection = mysql.createPool({
