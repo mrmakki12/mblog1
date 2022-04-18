@@ -76,6 +76,7 @@ app.post('/api/v1/login', (req, res) => {
 
                 // user found
                 req.session.user = user[0].username;
+                req.cookies.user = user[0].username;
                 console.log(req.session);
                 res.status(200).send({message: 'Success' , user})
             }
