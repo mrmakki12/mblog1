@@ -50,6 +50,15 @@ app.use(session({
     store: sessionStore
 }));
 
+// authentication
+const auth = (req, res, next) => {
+    if(req.session.auth) {
+        next();
+    } else {
+        res.status(403);
+    }
+}
+
 
 // login
 app.post('/api/v1/login', (req, res) => {
@@ -111,9 +120,7 @@ app.post('/api/v1/register', async (req, res, next) => {
 
 
 // get all articles 
-app.get('/api/v1/articles', async (req, res, next) => {
-
-    console.log(req.session.user);
+app.get('/api/v1/articles', auth, async (req, res, next) => {
 
     // query database
     db.query('SELECT * FROM articles;', (err, result) => {
@@ -126,7 +133,7 @@ app.get('/api/v1/articles', async (req, res, next) => {
 });
 
 // get individual article 
-app.get('/api/v1/articles/:id', async (req, res, next) => {
+app.get('/api/v1/articles/:id', auth, async (req, res, next) => {
 
     // query database
     db.query(`SELECT * FROM articles WHERE id = ?;`, req.params.id, (err, result) => {
@@ -139,7 +146,7 @@ app.get('/api/v1/articles/:id', async (req, res, next) => {
 });
 
 // get article's comments
-app.get('/api/v1/articles/:id/comments', async (req, res, next) => {
+app.get('/api/v1/articles/:id/comments', auth, async (req, res, next) => {
 
     // query database
     db.query(`SELECT * FROM comments WHERE article_id = ?;`, req.params.id, (err, result) => {
