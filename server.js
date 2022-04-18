@@ -60,21 +60,25 @@ app.post('/api/v1/login', (req, res) => {
     // find user 
     db.query(`SELECT * from users WHERE username = ?`, username, async (err, user) => {
         if(err) throw err;
+        
         // user not found
         if(!user)  {
             res.status(404).json({message: "User Not Found"})
         } else {
+
             // compare passwords 
             console.log(user)
             const matchedPassword = await bcrypt.compare(password, user[0].hashPassword);
+
             // password doesn't match
             if(matchedPassword === false) {
                 res.json({message: "Bad Credentials", user, matchedPassword})
             } else {
+
             // user found
-            req.session.user = { user: user[0].username } ;
+            req.session.user = user[0].username;
             console.log(req.session);
-            res.status(200).json({message: 'Success' , user})
+            res.status(200).send({message: 'Success' , user})
             }
         }
     })
