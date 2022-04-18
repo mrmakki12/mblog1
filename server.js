@@ -28,7 +28,6 @@ app.all('/*', (req, res, next) => {
 
 // attach data to req.body
 app.use(express.json());
-// app.use(express.urlencoded({extended: true}));
 
 // create session store
 const connection = mysql.createPool({
@@ -46,9 +45,7 @@ app.use(session({
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24
-    },
+    cookie: { maxAge: 1000 * 60 * 60 * 24, secure: true, path: 'https://comfy-sprinkles-ff6cae.netlify.app' },
     store: sessionStore
 }));
 
@@ -84,7 +81,7 @@ app.post('/api/v1/login', (req, res) => {
             }
         }
     })
-})
+});
 
 // register 
 app.post('/api/v1/register', async (req, res, next) => {
@@ -109,7 +106,7 @@ app.post('/api/v1/register', async (req, res, next) => {
     } catch (err) {
         next(err);
     }
-})
+});
 
 
 // get all articles 
