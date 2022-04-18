@@ -92,11 +92,11 @@ app.post('/api/v1/register', async (req, res, next) => {
         });
 
         // create user 
-        const salt = await bcrypt.genSalt(3);
+        const salt = await bcrypt.genSalt(2);
         const hashedPassword = await bcrypt.hash(password, salt);
         db.query(`INSERT INTO users (username, hashPassword) VALUES (?, ?)`, [username, hashedPassword], (err, user) => {
             if (err) next(err);
-            res.status(200).json({message: 'User Created!'});
+            res.status(200).json({message: 'User Created!', user});
         })
     } catch (err) {
         next(err);
