@@ -45,7 +45,7 @@ app.use(session({
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 * 24, secure: true, domain: 'https://comfy-sprinkles-ff6cae.netlify.app' },
+    cookie: { maxAge: 1000 * 60 * 60 * 24, domain: 'https://comfy-sprinkles-ff6cae.netlify.app' },
     store: sessionStore
 }));
 
