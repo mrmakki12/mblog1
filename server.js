@@ -16,7 +16,7 @@ const MySQLStore = require('express-mysql-session')(session);
 const bcrypt = require('bcrypt');
 // use cors
 app.use(cors({
-    credentials: true
+    // credentials: true
 }));
 
 app.use(express.urlencoded({extended: true}))
