@@ -71,9 +71,7 @@ app.post('/api/v1/login', (req, res, next) => {
 
     // if user have session data destroy it
     if(req.session) {
-        req.session.destroy((err) => {
-            if(err) next(err);
-        })
+        res.redirect('/profile');
     };   
 
     try {
