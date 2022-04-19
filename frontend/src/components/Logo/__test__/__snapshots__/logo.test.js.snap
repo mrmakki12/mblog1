@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  className="logo"
+>
+  <img
+    alt="Markdown logo"
+    src="/images/markdown.png"
+  />
+  <h1>
+    BLOG
+  </h1>
+</div>
+`;

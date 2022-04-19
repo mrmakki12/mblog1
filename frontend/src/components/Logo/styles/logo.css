@@ -1,0 +1,16 @@
+/* Logo styles */
+
+.logo {
+    display: flex;
+    color: var(--dark-blue);
+    width: fit-content;
+}
+
+.logo h1 {
+    font-size: 3rem;
+}
+
+.logo img {
+    max-height: 70px;
+    max-width: 100px;
+}

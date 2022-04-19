@@ -1,0 +1,44 @@
+/* Form2 and result styles */
+
+.form-results-container,
+.form-container,
+.form-container form,
+.result-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.result-container h2{
+    width: fit-content;
+    margin: 30px;
+}
+
+.result-container {
+    align-items: center;
+}
+
+.form-results-container {
+    width: 350px;
+    height: 150px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-container {
+    width: 100%;
+}
+
+.form-container form label {
+    align-self: center;
+    margin-bottom: 10px;
+}
+
+.form-container form input {
+    border: none;
+    height: 30px;
+    padding: 10px;
+    background-color: var(--eggshell);
+    border-bottom: 5px solid var(--dark-blue);
+    outline: none;
+    /* margin-bottom: 20px; */
+}

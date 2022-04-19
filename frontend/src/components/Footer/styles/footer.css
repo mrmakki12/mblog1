@@ -1,0 +1,25 @@
+/* Footer styles */
+.footer a,
+.footer {
+    color: white;
+}
+
+.footer {
+    background-color: var(--dark-blue);
+    padding: 10px 150px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* image */
+.footer-img {
+    max-height: 15px;
+    max-width: 15px;;
+}
+
+/* Media Queries */
+@media screen and (max-width: 500px) {
+    .footer {
+        padding: 10px;
+    }
+}

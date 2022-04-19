@@ -14,6 +14,11 @@ const mysql = require('mysql');
 const MySQLStore = require('express-mysql-session')(session);
 // bycrypt
 const bcrypt = require('bcrypt');
+const path = require('path');
+
+// render static files from build
+app.use(express.static(path.join(__dirname, 'frontend/build')));
+
 // use cors
 app.use(cors({
     // credentials: true
@@ -52,7 +57,6 @@ app.use(session({
 
 // login
 app.post('/api/v1/login', (req, res) => {
-    console.log(req.session.cookie.domain);
 
     // get input from front
     const { username, password } = req.body;

@@ -1,0 +1,25 @@
+/* Form 4 styles */
+
+.comment-form {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    max-width: 350px;
+
+}
+
+.comment-form textarea {
+    width: 275px;
+    height: 100px;
+    resize: none;
+    border: none;
+    border-bottom: 5px solid var(--dark-blue);
+}
+
+.comment-form button {
+    height: 40px;
+    width: 65px;
+    background-color: var(--dark-blue);
+    color: white;
+}
+

@@ -1,0 +1,11 @@
+/* colors and other variables */
+
+:root {
+    --dark-blue: #3A506B;
+    --eggshell: #F3F8F2;
+}
+
+.App { 
+    min-height: 100vh;
+    background-color: var(--eggshell);
+}

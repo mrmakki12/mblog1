@@ -1,0 +1,13 @@
+/* Create article/ edit article styles */
+
+.create-edit-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 0;
+}
+
+.form-header { 
+    font-size: 3rem;
+}

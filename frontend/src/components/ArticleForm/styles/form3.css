@@ -1,0 +1,54 @@
+/* Form 3 styles */
+
+.input-container input,
+.input-container textarea {
+    width: 650px;
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-bottom: 5px solid #3A506B;
+}
+
+.form3 button {
+    background-color: #3A506B;
+    color: white;
+    outline: none;
+    border: none;
+    padding: 10px;
+    height: 40px;
+    width: 65px;
+}
+
+.input-container input {
+    height: 50px;
+} 
+
+.input-container textarea {
+    height: 800px;
+    resize: none;
+}
+
+/* Media queries */
+
+/* Mobile */
+@media screen and (max-width: 360px) {
+    .input-container input,
+    .input-container textarea {
+        width: 300px;
+    }
+}
+
+@media screen and (min-width: 361px) and (max-width: 450px) {
+    .input-container input,
+    .input-container textarea {
+        width: 345px;
+    }
+}
+
+/* Small tablet */
+@media screen and (min-width: 451px) and (max-width: 700px) {
+    .input-container input,
+    .input-container textarea {
+        width: 500px;
+    }
+}

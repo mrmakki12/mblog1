@@ -1,0 +1,31 @@
+/* Author styles */
+
+.author-container,
+.author-info,
+.author-avatar {
+    display: flex;
+    align-items: center;
+}
+
+.author-container {
+    justify-content: space-between;
+}
+
+.author-avatar {
+    height: 50px;
+    width: 50px;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: lightgray;
+    margin-right: 15px;
+}
+
+/* Queries */
+
+/* mobile */
+@media screen and (max-width: 375px) {
+    .author-avatar {
+        height: 40px;
+        width: 40px;
+    }
+}

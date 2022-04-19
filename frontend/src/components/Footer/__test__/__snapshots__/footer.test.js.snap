@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<footer
+  className="footer"
+  data-testid="footer"
+>
+  <p>
+    Made with 
+    <img
+      alt="heart"
+      className="footer-img"
+      src="/images/heart.png"
+    />
+     By: 
+    <a
+      href="https://tyreeckcodes.com"
+      rel="noreferrer"
+      target="_blank"
+    >
+      Tyreeck Makki!
+    </a>
+  </p>
+</footer>
+`;
