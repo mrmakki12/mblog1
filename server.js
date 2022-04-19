@@ -54,6 +54,15 @@ app.use(session({
     store: sessionStore
 }));
 
+// ensure authentication
+const authenticated = (req, res, next) => {
+    if(req.session.auth) {
+        next();
+    } else {
+        res.sendStatus(403);
+    }
+}
+
 
 // login
 app.post('/api/v1/login', (req, res) => {
@@ -81,8 +90,9 @@ app.post('/api/v1/login', (req, res) => {
 
                 // user found
                 req.session.user = user[0].username;
+                req.session.auth = true;
                 console.log(req.session);
-                res.status(200).send({message: 'Success' , user})
+                res.status(200).send({message: 'Success' , user});
             }
         }
     })
@@ -115,7 +125,7 @@ app.post('/api/v1/register', async (req, res, next) => {
 
 
 // get all articles 
-app.get('/api/v1/articles', async (req, res, next) => {
+app.get('/api/v1/articles', authenticated, async (req, res, next) => {
 
     // query database
     db.query('SELECT * FROM articles;', (err, result) => {
@@ -128,7 +138,7 @@ app.get('/api/v1/articles', async (req, res, next) => {
 });
 
 // get individual article 
-app.get('/api/v1/articles/:id', async (req, res, next) => {
+app.get('/api/v1/articles/:id', authenticated, async (req, res, next) => {
 
     // query database
     db.query(`SELECT * FROM articles WHERE id = ?;`, req.params.id, (err, result) => {
@@ -141,7 +151,7 @@ app.get('/api/v1/articles/:id', async (req, res, next) => {
 });
 
 // get article's comments
-app.get('/api/v1/articles/:id/comments', async (req, res, next) => {
+app.get('/api/v1/articles/:id/comments', authenticated, async (req, res, next) => {
 
     // query database
     db.query(`SELECT * FROM comments WHERE article_id = ?;`, req.params.id, (err, result) => {
@@ -154,7 +164,7 @@ app.get('/api/v1/articles/:id/comments', async (req, res, next) => {
 });
 
 // add comment 
-app.post('/api/v1/articles/:id/comments', async (req, res, next) => {
+app.post('/api/v1/articles/:id/comments', authenticated, async (req, res, next) => {
 
         // post comment in database
         db.query(`INSERT INTO comments (article_id, user_name, comments, created) 
@@ -167,7 +177,7 @@ app.post('/api/v1/articles/:id/comments', async (req, res, next) => {
 });
 
 // create article
-app.post('/api/v1/articles/create', async (req, res, next) => {
+app.post('/api/v1/articles/create', authenticated, async (req, res, next) => {
 
     // post article in database
     db.query(`INSERT INTO articles (user_name, created, title, subtitle, mardown) 
@@ -180,7 +190,7 @@ app.post('/api/v1/articles/create', async (req, res, next) => {
 });
 
 // edit article
-app.put('/api/v1/articles/:id/edit', async (req, res, next) => {
+app.put('/api/v1/articles/:id/edit', authenticated, async (req, res, next) => {
 
     // update article
     db.query(`UPDATE articles SET created = ?, title = ?, subtitle = ?, mardown = ?
