@@ -52,6 +52,7 @@ app.use(session({
 
 // login
 app.post('/api/v1/login', (req, res) => {
+    console.log(req.hostname);
 
     // get input from front
     const { username, password } = req.body;
