@@ -36,7 +36,7 @@ export const Nav = () => {
             <div className="logout-prof">
                 <button onClick={(e) => handleLogout(e)}>Logout</button>
                 <Link to='/profile'>
-                    <div className="profile">{user.username && username.username[0]}</div>
+                    <div className="profile">{user.username && user.username[0]}</div>
                 </Link>
             </div>
         </nav>
