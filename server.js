@@ -126,7 +126,7 @@ app.post('/api/v1/register', async (req, res, next) => {
 app.post('/logout', authenticated, (req, res) => {
     req.session.destroy((err) => {
         if(err) throw err;
-        res.redirect('/');
+        res.redirect('/'); 
     })
 });
 
