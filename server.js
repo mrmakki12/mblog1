@@ -135,7 +135,7 @@ app.post('/api/v1/register', async (req, res, next) => {
 });
 
 // logout 
-app.post('api/v1/logout', authenticated, (req, res) => {
+app.post('/api/v1/logout', authenticated, (req, res) => {
     req.session.destroy((err) => {
         if(err) throw err;
         res.redirect('/'); 
@@ -143,7 +143,7 @@ app.post('api/v1/logout', authenticated, (req, res) => {
 });
 
 // get user
-app.get('api/v1/user', authenticated, (req, res, next) => {
+app.get('/api/v1/user', authenticated, (req, res, next) => {
     // user should already be logged in, using session data to get data
     db.query(`SELECT * FROM users WHERE username = ?`, req.session.user, (err, user) => {
         if(err) next(err);
@@ -152,7 +152,7 @@ app.get('api/v1/user', authenticated, (req, res, next) => {
 });
 
 // add/edit description
-app.put('api/v1/description', authenticated, (req, res, next) => {
+app.put('/api/v1/description', authenticated, (req, res, next) => {
     // grab input from user
     const { description } = req.body;
 
