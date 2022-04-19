@@ -11,7 +11,7 @@ export const User = () => {
     // get user
     const fetchUser = async () => {
         const result = await mBlog.get('/api/v1/user');
-        return result.data;
+        return result.data[0];
     };
     const user = fetchUser();
 
