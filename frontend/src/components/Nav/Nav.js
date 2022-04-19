@@ -7,7 +7,7 @@ import './styles/nav.css';
 import mBlog from "../../API/mBlog";
 
 export const Nav = () => {
-    
+
     // get user
     const fetchUser = async () => {
         const result = await mBlog.get('/user');
@@ -21,10 +21,10 @@ export const Nav = () => {
     const navigate = useNavigate();
 
     // logout and return to login page
-    const handleLogout = (e) => {
+    const handleLogout = async (e) => {
         e.preventDefault();
         // api call here
-        mBlog.post('/logout');
+        await mBlog.post('/api/v1/logout');
         navigate('/');
     }
 
@@ -36,7 +36,7 @@ export const Nav = () => {
             <div className="logout-prof">
                 <button onClick={(e) => handleLogout(e)}>Logout</button>
                 <Link to='/profile'>
-                    <div className="profile">p</div>
+                    <div className="profile">{user.username && username.username[0]}</div>
                 </Link>
             </div>
         </nav>

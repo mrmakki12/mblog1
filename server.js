@@ -64,10 +64,17 @@ const authenticated = (req, res, next) => {
 }
 
 // login
-app.post('/api/v1/login', (req, res) => {
+app.post('/api/v1/login', (req, res, next) => {
 
     // get input from front
     const { username, password } = req.body;
+
+    // if user have session data destroy it
+    if(req.session) {
+        req.session.destroy((err) => {
+            if(err) next(err);
+        })
+    };   
 
     // find user 
     db.query(`SELECT * from users WHERE username = ?`, username, async (err, user) => {
@@ -123,7 +130,7 @@ app.post('/api/v1/register', async (req, res, next) => {
 });
 
 // logout 
-app.post('/logout', authenticated, (req, res) => {
+app.post('api/v1/logout', authenticated, (req, res) => {
     req.session.destroy((err) => {
         if(err) throw err;
         res.redirect('/'); 
@@ -131,12 +138,25 @@ app.post('/logout', authenticated, (req, res) => {
 });
 
 // get user
-app.get('/user', authenticated, (req, res, next) => {
+app.get('api/v1/user', authenticated, (req, res, next) => {
     // user should already be logged in, using session data to get data
     db.query(`SELECT * FROM users WHERE username = ?`, req.session.user, (err, user) => {
         if(err) next(err);
         res.send(user);
     });
+});
+
+// add/edit description
+app.put('api/v1/description', authenticated, (req, res, next) => {
+    // grab input from user
+    const { description } = req.body;
+
+    // find description based on session data
+    db.query(`UPDATE users SET description = ? WHERE username = ?`, [description, req.session.user], (err, result) => {
+        if(err) next(err);
+        res.sendStatus(200);
+    });
+
 });
 
 // get all articles 
