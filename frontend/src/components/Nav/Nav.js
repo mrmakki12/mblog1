@@ -10,7 +10,7 @@ export const Nav = () => {
 
     // get user
     const fetchUser = async () => {
-        const result = await mBlog.get('/user');
+        const result = await mBlog.get('/api/v1/user');
         return result.data;
     };
     const user = fetchUser();
