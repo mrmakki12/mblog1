@@ -45,14 +45,14 @@ app.use(session({
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 * 24, domain: 'https://comfy-sprinkles-ff6cae.netlify.app' },
+    cookie: { maxAge: 1000 * 60 * 60 * 24 },
     store: sessionStore
 }));
 
 
 // login
 app.post('/api/v1/login', (req, res) => {
-    console.log(req.hostname);
+    console.log(req.session.cookie.domain);
 
     // get input from front
     const { username, password } = req.body;
