@@ -3,14 +3,19 @@ import React from "react";
 import { Link, useNavigate } from 'react-router-dom';
 // styles 
 import './styles/nav.css';
-// fake data
-import { fakeUser } from "../../utils/fakedata";
 // Api
-
+import mBlog from "../../API/mBlog";
 
 export const Nav = () => {
-    // temp fake user
-    const user = fakeUser;
+    
+    // get user
+    const fetchUser = async () => {
+        const result = await mBlog.get('/user');
+        return result.data;
+    };
+    const user = fetchUser();
+
+    console.log(user);
 
     // navigate page paths
     const navigate = useNavigate();
@@ -19,6 +24,7 @@ export const Nav = () => {
     const handleLogout = (e) => {
         e.preventDefault();
         // api call here
+        mBlog.post('/logout');
         navigate('/');
     }
 
@@ -30,7 +36,7 @@ export const Nav = () => {
             <div className="logout-prof">
                 <button onClick={(e) => handleLogout(e)}>Logout</button>
                 <Link to='/profile'>
-                    <div className="profile">{user.username[0]}</div>
+                    <div className="profile">p</div>
                 </Link>
             </div>
         </nav>
