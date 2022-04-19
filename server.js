@@ -70,9 +70,9 @@ app.post('/api/v1/login', (req, res, next) => {
     const { username, password } = req.body;
 
     // if user have session data destroy it
-    if(req.session) {
-        res.redirect('/profile');
-    };   
+    // if(req.session) {
+    //     res.redirect('/profile');
+    // };   
 
     try {
 
