@@ -209,7 +209,6 @@ app.delete('/api/v1/user/articles/delete', authenticated, async (req, res, next)
     // delete article
     db.query(`DELETE FROM articles WHERE id = ?`, req.body.id, (err, result) => {
         if(err) next(err);
-        res.send(200);
     });
 
     // delete all comments belonging to article
