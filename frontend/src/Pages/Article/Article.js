@@ -46,7 +46,7 @@ export const Article = () => {
                 </div>
                 <br />
                 <br />
-                <div>
+                <div className="article-title-sub">
                     <h1>{ article && article.title }</h1>
                     <br />
                     <h2>{ article && article.subtitle }</h2>

@@ -2,6 +2,11 @@
 
 .article-comments-container {
     padding: 50px 200px;
+    min-height: 100vh;
+}
+
+.article-title-sub {
+    border-bottom: 3px solid var(--dark-blue);
 }
 
 /* Queries */
