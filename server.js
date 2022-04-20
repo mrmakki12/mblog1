@@ -195,7 +195,7 @@ app.get('/api/v1/articles/:id', authenticated, async (req, res, next) => {
 app.get('/api/v1/user/articles', authenticated, async (req, res, next) => {
 
     // using session data to get user's articles
-    db.query(`SELECT * FROM articles WHERE username = ?`, req.session.user, (err, result) => {
+    db.query(`SELECT * FROM articles WHERE user_name = ?`, req.session.user, (err, result) => {
         if(err) next(err);
         res.send(result);
     })
