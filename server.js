@@ -77,7 +77,7 @@ app.post('/api/v1/login', (req, res, next) => {
     try {
 
         // find user 
-        db.query(`SELECT * from users WHERE username = ?`, username, async (err, user) => {
+        db.query(`SELECT * from users WHERE username = '?'`, username, async (err, user) => {
             if(err) throw err;
 
             // user not found
@@ -194,8 +194,6 @@ app.get('/api/v1/articles/:id', authenticated, async (req, res, next) => {
 // get aritcles belonging to user 
 app.get('/api/v1/user/articles', authenticated, async (req, res, next) => {
 
-    console.log(req.session.user);
-
     // using session data to get user's articles
     db.query(`SELECT * FROM articles WHERE user_name = ?`, req.session.user, (err, result) => {
         if(err) next(err);
@@ -205,6 +203,8 @@ app.get('/api/v1/user/articles', authenticated, async (req, res, next) => {
 
 // delete article belonging to user
 app.delete('/api/v1/user/articles/delete', authenticated, async (req, res, next) => {
+
+    console.log(req.body.id);
 
     // delete article
     db.query(`DELETE FROM articles WHERE id = ?`, req.body.id, (err, result) => {
