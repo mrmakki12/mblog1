@@ -22,7 +22,13 @@
     text-decoration: none;
 }
 
+.profile-article-prev {
+    display: flex;
+    align-items: center;
+}
+
 /* Queries */
+
 @media screen and (max-width: 910px) {
     .profile-container {
         flex-direction: column-reverse;

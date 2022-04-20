@@ -36,7 +36,7 @@ export const Profile = () => {
                         {
                             articles && articles.map(article => {
                                 return (
-                                    <div>
+                                    <div className='profile-article-prev'>
                                         <ArticlePreview data={article} />
                                         <Link to={`/articles/${article.id}/edit`}>
                                             <img src='/images/edit.png' alt='edit' height={20} width={20}/>
