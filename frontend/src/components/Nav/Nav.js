@@ -17,7 +17,8 @@ export const Nav = () => {
             const result = await mBlog.get('/api/v1/user');
             setUser(result.data[0]);
         };
-    });
+        fetchUser();
+    }, []);
 
     console.log(user);
 

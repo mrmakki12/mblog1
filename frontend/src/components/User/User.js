@@ -17,7 +17,8 @@ export const User = () => {
             const result = await mBlog.get('/api/v1/user');
             setUser(result.data[0]);
         };
-    });
+        fetchUser();
+    }, []);
 
     // state for description
     const [description, setDescription] = useState(user.description);
