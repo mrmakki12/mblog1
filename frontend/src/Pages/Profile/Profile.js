@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // styles 
 import './styles/profile.css';
 // components
@@ -8,10 +8,21 @@ import { ArticlePreview } from '../../components/ArticlePreview/ArticlePreview';
 import { Footer } from '../../components/Footer/Footer';
 // react router components 
 import { Link } from 'react-router-dom';
-// fake data
-import { fakeArticle } from '../../utils/fakedata';
+// api 
+import mBlog from '../../API/mBlog';
 
 export const Profile = () => {
+
+    // articles belonging to user
+    const [articles, setArticles] = useState([]);
+
+    // fetch articles
+    useEffect(() => {
+        const fetchArticles = async () => {
+            const results = mBlog.get('/api/v1/user/articles');
+            setArticles(results.data);
+        }
+    }, []);
 
     return (
         <div>
@@ -20,13 +31,11 @@ export const Profile = () => {
                 <div className='profile-articles'>
                     <h2>Your Articles <Link title='Add Article' to='/create-article'>+</Link></h2>
                     <div>
-                        <ArticlePreview data={fakeArticle}/>
-                            <br />
-                        <ArticlePreview data={fakeArticle}/>
-                        <br />
-                        <ArticlePreview data={fakeArticle}/>
-                        <br />
-                        <ArticlePreview data={fakeArticle}/>
+                        {
+                            articles.map(article => {
+                                return <ArticlePreview data={article} />
+                            })
+                        }
                     </div>
                 </div>
                 <div>
