@@ -221,7 +221,7 @@ app.post('/api/v1/articles/:id/comments', authenticated, async (req, res, next) 
 
         // post comment in database
         db.query(`INSERT INTO comments (article_id, user_name, comments, created) 
-        VALUES (?, ?, ?, ?)`, [req.body.article_id, req.body.user_name, req.body.comments, req.body.created], (err, result) => {
+        VALUES (?, ?, ?, ?)`, [req.body.article_id, req.session.user, req.body.comments, req.body.created], (err, result) => {
             if(err) {
                 console.log(err);
             }
@@ -234,7 +234,7 @@ app.post('/api/v1/articles/create', authenticated, async (req, res, next) => {
 
     // post article in database
     db.query(`INSERT INTO articles (user_name, created, title, subtitle, mardown) 
-    VALUES (?, ?, ?, ?, ?)`, ['TyreeckGoat', new Date().toISOString().substring(0, 10), req.body.title, req.body.subtitle, req.body.markdown], (err, result) => {
+    VALUES (?, ?, ?, ?, ?)`, [req.session.user, new Date().toISOString().substring(0, 10), req.body.title, req.body.subtitle, req.body.markdown], (err, result) => {
         if(err) {
             console.log(err);
         }
