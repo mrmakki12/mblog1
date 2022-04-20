@@ -21,6 +21,7 @@ export const Profile = () => {
         const fetchArticles = async () => {
             const results = mBlog.get('/api/v1/user/articles');
             setArticles(results.data);
+            console.log(results)
         }
         fetchArticles();
     }, []);
@@ -33,7 +34,7 @@ export const Profile = () => {
                     <h2>Your Articles <Link title='Add Article' to='/create-article'>+</Link></h2>
                     <div>
                         {
-                            articles.map(article => {
+                            articles && articles.map(article => {
                                 return <ArticlePreview data={article} />
                             })
                         }
