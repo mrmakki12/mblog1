@@ -35,7 +35,7 @@ export const User = () => {
             <div className='avatar'>{user.username && user.username[0]}</div>
             <div className='user-info'>
                 <p className='username'>{user && user.username}</p>
-                <EdiText type='text' value={description} onSave={handleSave}/>
+                <EdiText type='text' value={description} onSave={(e) => handleSave(e.target.value)}/>
             </div>
         </div>
     )
