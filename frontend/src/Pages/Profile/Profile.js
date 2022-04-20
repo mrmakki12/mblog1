@@ -22,6 +22,7 @@ export const Profile = () => {
             const results = mBlog.get('/api/v1/user/articles');
             setArticles(results.data);
         }
+        fetchArticles();
     }, []);
 
     return (
