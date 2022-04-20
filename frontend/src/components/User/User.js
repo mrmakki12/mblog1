@@ -28,7 +28,7 @@ export const User = () => {
         // api call here
         console.log(val);
         setDescription(val);
-        const newDescription = await mBlog.put('/api/v1/description', {description});
+        const newDescription = await mBlog.put('/api/v1/description', {description: val});
     }
 
     return (
