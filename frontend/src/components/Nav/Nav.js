@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // router components
 import { Link, useNavigate } from 'react-router-dom';
 // styles 
@@ -8,12 +8,16 @@ import mBlog from "../../API/mBlog";
 
 export const Nav = () => {
 
+    // user state
+    const [user, setUser] = useState({});
+
     // get user
-    const fetchUser = async () => {
-        const result = await mBlog.get('/api/v1/user');
-        return result.data[0];
-    };
-    const user = fetchUser();
+    useEffect(() => {
+        const fetchUser = async () => {
+            const result = await mBlog.get('/api/v1/user');
+            setUser(result.data[0]);
+        };
+    });
 
     console.log(user);
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // styles 
 import './styles/user.css';
 // edit text box on click
@@ -8,12 +8,16 @@ import mBlog from '../../API/mBlog';
 
 export const User = () => {
 
+    // user state
+    const [user, setUser] = useState({});
+
     // get user
-    const fetchUser = async () => {
-        const result = await mBlog.get('/api/v1/user');
-        return result.data[0];
-    };
-    const user = fetchUser();
+    useEffect(() => {
+        const fetchUser = async () => {
+            const result = await mBlog.get('/api/v1/user');
+            setUser(result.data[0]);
+        };
+    });
 
     // state for description
     const [description, setDescription] = useState(user.description);
