@@ -19,7 +19,7 @@ export const Profile = () => {
     // fetch articles
     useEffect(() => {
         const fetchArticles = async () => {
-            const results = mBlog.get('/api/v1/user/articles');
+            const results = await mBlog.get('/api/v1/user/articles');
             setArticles(results.data);
             console.log(results)
         }

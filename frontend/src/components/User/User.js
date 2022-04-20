@@ -15,6 +15,7 @@ export const User = () => {
     useEffect(() => {
         const fetchUser = async () => {
             const result = await mBlog.get('/api/v1/user');
+            console.log(result);
             setUser(result.data[0]);
         };
         fetchUser();
