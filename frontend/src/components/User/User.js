@@ -25,8 +25,8 @@ export const User = () => {
 
     // handle save update db
     const handleSave = async (val) => {
-        setDescription(val);
         // api call here
+        setDescription(val)
         await mBlog.put('/api/v1/description', {description});
     }
 
@@ -35,7 +35,7 @@ export const User = () => {
             <div className='avatar'>{user.username && user.username[0]}</div>
             <div className='user-info'>
                 <p className='username'>{user && user.username}</p>
-                <EdiText type='text' value={description} onSave={(e) => handleSave(e.target.value)}/>
+                <EdiText type='text' value={description} onSave={handleSave}/>
             </div>
         </div>
     )
