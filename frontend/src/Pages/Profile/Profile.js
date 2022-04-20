@@ -29,7 +29,7 @@ export const Profile = () => {
     // delete article
     const handleDelete = async (e, article) => {
         // e.preventDefault();
-        await mBlog.delete('/api/v1/articles/delete', {id: article.id});
+        await mBlog.delete('/api/v1/user/articles/delete', {id: article.id});
     }
 
     return (

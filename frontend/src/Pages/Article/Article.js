@@ -13,7 +13,6 @@ import Markdown from 'markdown-to-jsx';
 // styles
 import './styles/article.css';
 
-
 export const Article = () => {
 
     // id of article
@@ -44,6 +43,12 @@ export const Article = () => {
             <div className="article-comments-container">
                 <div>
                     <Author article={article}/>
+                </div>
+                <br />
+                <br />
+                <div>
+                    <h1>{ article && article.title }</h1>
+                    <h2>{ article && article.subtitle }</h2>
                 </div>
                 <br />
                 <br />
