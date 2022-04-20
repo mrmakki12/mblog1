@@ -26,8 +26,9 @@ export const User = () => {
     // handle save update db
     const handleSave = async (val) => {
         // api call here
-        setDescription(val)
-        await mBlog.put('/api/v1/description', {description});
+        console.log(val);
+        setDescription(val);
+        const newDescription = await mBlog.put('/api/v1/description', {description});
     }
 
     return (
