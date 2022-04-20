@@ -17,12 +17,13 @@ export const User = () => {
             const result = await mBlog.get('/api/v1/user');
             console.log(result);
             setUser(result.data[0]);
+            setDescription(result.data[0].description);
         };
         fetchUser();
     }, []);
 
     // state for description
-    const [description, setDescription] = useState(user && user.description);
+    const [description, setDescription] = useState('');
 
     // handle save update db
     const handleSave = async (val) => {
