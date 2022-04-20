@@ -77,7 +77,7 @@ app.post('/api/v1/login', (req, res, next) => {
     try {
 
         // find user 
-        db.query(`SELECT * from users WHERE username = '?'`, username, async (err, user) => {
+        db.query(`SELECT * from users WHERE username = ?`, username, async (err, user) => {
             if(err) throw err;
 
             // user not found
