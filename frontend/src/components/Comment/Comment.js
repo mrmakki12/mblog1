@@ -1,8 +1,8 @@
 import React from "react";
-// date convertor
-const moment = require('moment');
 // styles 
 import './styles/comment.css';
+// date convertor
+const moment = require('moment');
 
 export const Comment = ({comment}) => {
 
