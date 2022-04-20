@@ -22,7 +22,7 @@ export const User = () => {
     }, []);
 
     // state for description
-    const [description, setDescription] = useState(user.description);
+    const [description, setDescription] = useState(user && user.description);
 
     // handle save update db
     const handleSave = async (val) => {
