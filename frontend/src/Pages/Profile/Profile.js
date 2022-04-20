@@ -26,12 +26,6 @@ export const Profile = () => {
         fetchArticles();
     }, []);
 
-    // delete article
-    const handleDelete = async (e, article) => {
-        // e.preventDefault();
-        await mBlog.delete('/api/v1/user/articles/delete', {id: article.id});
-    }
-
     return (
         <div>
             <Nav />
@@ -47,9 +41,6 @@ export const Profile = () => {
                                         <Link to={`/articles/${article.id}/edit`}>
                                             <img src='/images/edit.png' alt='edit' height={20} width={20}/>
                                         </Link>
-                                        <div onClick={(e) => handleDelete(e, article)}>
-                                            <img src='/images/delete.png' alt='delete' height={20} width />
-                                        </div>
                                     </div>
                                     )
                             })

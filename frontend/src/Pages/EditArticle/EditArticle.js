@@ -21,6 +21,12 @@ export const EditArticle = () => {
         mBlog.put(`/api/v1/articles/${id}/edit`, data);
     }
 
+    // delete article
+    const deleteArticle = (e) => {
+        // api call
+        mBlog.delete(`/api/v1/articles/${id}/delete`);
+    }
+
     return (
         <div>
             <Nav />
@@ -28,6 +34,7 @@ export const EditArticle = () => {
                 <h1 className="form-header">Edit Article</h1>
                 <br />
                 <Form3 func={editArticle}/>
+                <button onClick={(e) => deleteArticle(e)}>DELETE</button>
             </div>
             <Footer />
         </div>

@@ -202,20 +202,13 @@ app.get('/api/v1/user/articles', authenticated, async (req, res, next) => {
 });
 
 // delete article belonging to user
-app.delete('/api/v1/user/articles/delete', authenticated, async (req, res, next) => {
-
-    console.log(req.body.id);
+app.delete('/api/v1/articles/:id/delete', authenticated, async (req, res, next) => {
 
     // delete article
-    db.query(`DELETE FROM articles WHERE id = ?`, req.body.id, (err, result) => {
+    db.query(`DELETE FROM articles WHERE id = ?`, req.params.id, (err, result) => {
         if(err) next(err);
-    });
-
-    // delete all comments belonging to article
-    // db.query(`DELETE FROM comments WHERE article_id = ?`, req.body.id, (err, result) => {
-    //     if(err) next(err);
-    //     res.send(200);
-    // });
+        res.sendStatus(200);
+    })
 });
 
 // get article's comments
