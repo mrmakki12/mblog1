@@ -50,6 +50,7 @@ export const Article = () => {
                     <h1>{ article && article.title }</h1>
                     <br />
                     <h2>{ article && article.subtitle }</h2>
+                    <br />
                 </div>
                 <br />
                 <br />

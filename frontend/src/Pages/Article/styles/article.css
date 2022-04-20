@@ -6,7 +6,7 @@
 }
 
 .article-title-sub {
-    border-bottom: 3px solid var(--dark-blue);
+    border-bottom: 5px solid var(--dark-blue);
 }
 
 /* Queries */

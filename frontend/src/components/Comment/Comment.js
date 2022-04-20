@@ -1,11 +1,13 @@
 import React from "react";
 // date convertor
 const moment = require('moment');
+// styles 
+import './styles/comment.css';
 
 export const Comment = ({comment}) => {
 
     return (
-        <div className="preview-container">
+        <div className="comment-container">
             <div className="preview-profile">
                 <div>{comment.user_name && comment.user_name[0]}</div>
                 <p>{comment.user_name}</p>
