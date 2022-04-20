@@ -158,6 +158,7 @@ app.put('/api/v1/description', authenticated, (req, res, next) => {
 
     // find description based on session data
     db.query(`UPDATE users SET description = ? WHERE username = ?`, [description, req.session.user], (err, result) => {
+        console.log(description, req.session.user);
         if(err) next(err);
         res.sendStatus(200);
     });
