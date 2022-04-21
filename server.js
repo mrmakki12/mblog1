@@ -86,7 +86,6 @@ app.post('/api/v1/login', (req, res, next) => {
             } else {
 
                 // compare passwords 
-                console.log(user)
                 const matchedPassword = await bcrypt.compare(password, user[0].hashPassword);
 
                 // password doesn't match
@@ -97,7 +96,6 @@ app.post('/api/v1/login', (req, res, next) => {
                     // user found
                     req.session.user = user[0].username;
                     req.session.auth = true;
-                    console.log(req.session);
                     res.status(200).send({message: 'Success' , user});
                 }
             }
@@ -158,7 +156,6 @@ app.put('/api/v1/description', authenticated, (req, res, next) => {
 
     // find description based on session data
     db.query(`UPDATE users SET description = ? WHERE username = ?`, [description, req.session.user], (err, result) => {
-        console.log(description, req.session.user);
         if(err) next(err);
         res.sendStatus(200);
     });
@@ -202,13 +199,13 @@ app.get('/api/v1/user/articles', authenticated, async (req, res, next) => {
 });
 
 // delete article 
-app.delete('/api/v1/articles/:id/delete', authenticated, (req, res, next) => {
+app.delete('/api/v1/articles/:id/delete', authenticated, async (req, res, next) => {
     console.log(req.params.id);
 
     // delete article
     db.query(`DELETE FROM articles WHERE id = ?`, req.params.id, (err, result) => {
         if(err) next(err);
-        // res.sendStatus(200);
+        res.sendStatus(200);
     });
 });
 
