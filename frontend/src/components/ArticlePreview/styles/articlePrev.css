@@ -29,6 +29,7 @@
     padding: 10px;
     background-color: white;
     transition: all ease-in-out 0.3s;
+    text-align: center;
 }
 
 .preview-container:hover {

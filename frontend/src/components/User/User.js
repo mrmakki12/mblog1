@@ -15,9 +15,9 @@ export const User = () => {
     useEffect(() => {
         const fetchUser = async () => {
             const result = await mBlog.get('/api/v1/user');
-            console.log(result);
-            setUser(result.data[0]);
-            setDescription(result.data[0].description);
+            const user = result.data[0];
+            setUser(user);
+            setDescription(user.description ? user.description : 'Edit your profile description!');
         };
         fetchUser();
     }, []);
