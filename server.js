@@ -200,7 +200,7 @@ app.get('/api/v1/user/articles', authenticated, async (req, res, next) => {
 
 // delete article 
 app.delete('/api/v1/articles/:id/delete', authenticated, async (req, res, next) => {
-    console.log(req.params.id);
+    console.log(req.params.id, req.session.auth);
 
     // delete article
     db.query(`DELETE FROM articles WHERE id = ?`, req.params.id, (err, result) => {
