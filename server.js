@@ -204,8 +204,11 @@ app.delete('/api/v1/articles/:id/delete', authenticated, async (req, res, next) 
 
     // delete article
     db.query(`DELETE FROM articles WHERE id = ?`, req.params.id, (err, result) => {
-        if(err) next(err);
-        res.sendStatus(200);
+        if(err) {
+            next(err);
+        } else {
+            res.sendStatus(200);
+        }
     });
 });
 
