@@ -20,9 +20,7 @@ const path = require('path');
 app.use(express.static(path.join(__dirname, 'frontend/build')));
 
 // use cors
-app.use(cors({
-    // credentials: true
-}));
+app.use(cors());
 
 app.use(express.urlencoded({extended: true}))
 
@@ -167,9 +165,7 @@ app.get('/api/v1/articles', authenticated, async (req, res, next) => {
 
     // query database
     db.query('SELECT * FROM articles;', (err, result) => {
-        if(err) {
-            console.log(err);
-        }
+        if(err) next(err);
         res.send(result);
     });
 
@@ -180,9 +176,7 @@ app.get('/api/v1/articles/:id', authenticated, async (req, res, next) => {
 
     // query database
     db.query(`SELECT * FROM articles WHERE id = ?;`, req.params.id, (err, result) => {
-        if(err) {
-            console.log(err);
-        }
+        if(err) next(err);
         res.send(result);
     }); 
 
@@ -200,15 +194,15 @@ app.get('/api/v1/user/articles', authenticated, async (req, res, next) => {
 
 // delete article 
 app.delete('/api/v1/articles/:id/delete', authenticated, async (req, res, next) => {
-    console.log(req.params.id, req.session.auth);
+
+    // first delete comments associated with article
+    db.query(`DELECT FROM comments WHERE id = ?`, req.params.id, (err, result) => {
+        if(err) next(err);
+    });
 
     // delete article
     db.query(`DELETE FROM articles WHERE id = ?`, req.params.id, (err, result) => {
-        if(err) {
-            next(err);
-        } else {
-            res.sendStatus(200);
-        }
+        if(err) next(err);
     });
 });
 
@@ -217,9 +211,7 @@ app.get('/api/v1/articles/:id/comments', authenticated, async (req, res, next) =
 
     // query database
     db.query(`SELECT * FROM comments WHERE article_id = ?;`, req.params.id, (err, result) => {
-        if(err) {
-            console.log(err);
-        }
+        if(err) next(err);
         res.send(result);
     });
 
@@ -231,9 +223,7 @@ app.post('/api/v1/articles/:id/comments', authenticated, async (req, res, next) 
         // post comment in database
         db.query(`INSERT INTO comments (article_id, user_name, comments, created) 
         VALUES (?, ?, ?, ?)`, [req.body.article_id, req.session.user, req.body.comments, req.body.created], (err, result) => {
-            if(err) {
-                console.log(err);
-            }
+            if(err) next(err);
             res.send(result);
         });
 });
@@ -244,9 +234,7 @@ app.post('/api/v1/articles/create', authenticated, async (req, res, next) => {
     // post article in database
     db.query(`INSERT INTO articles (user_name, created, title, subtitle, mardown) 
     VALUES (?, ?, ?, ?, ?)`, [req.session.user, new Date().toISOString().substring(0, 10), req.body.title, req.body.subtitle, req.body.markdown], (err, result) => {
-        if(err) {
-            console.log(err);
-        }
+        if(err) next(err);
         res.send(result);
     });
 });
@@ -257,9 +245,7 @@ app.put('/api/v1/articles/:id/edit', authenticated, async (req, res, next) => {
     // update article
     db.query(`UPDATE articles SET created = ?, title = ?, subtitle = ?, mardown = ?
     WHERE id = ?;`, [new Date().toISOString().substring(0, 10), req.body.title, req.body.subtitle, req.body.markdown, req.params.id], (err, result) => {
-        if(err) {
-            console.log(err);
-        }
+        if(err) next(err);
         res.send(result);
     })
 });
