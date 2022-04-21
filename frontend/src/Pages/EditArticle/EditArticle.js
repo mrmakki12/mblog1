@@ -7,9 +7,6 @@ import { Form3 } from '../../components/ArticleForm/Form3';
 import mBlog from "../../API/mBlog";
 // react router
 import { useParams } from "react-router-dom";
-// styles
-// import './styles/createArticle.css';
-
 
 export const EditArticle = () => {
 
@@ -23,8 +20,10 @@ export const EditArticle = () => {
 
     // delete article
     const deleteArticle = (e) => {
+        e.preventDefault();
         // api call
         mBlog.delete(`/api/v1/articles/${id}/delete`);
+        alert('Article Deleted :(');
     }
 
     return (
@@ -34,7 +33,7 @@ export const EditArticle = () => {
                 <h1 className="form-header">Edit Article</h1>
                 <br />
                 <Form3 func={editArticle}/>
-                <button onClick={(e) => deleteArticle(e)}>DELETE</button>
+                <button className='delete-article' onClick={(e) => deleteArticle(e)}>DELETE</button>
             </div>
             <Footer />
         </div>

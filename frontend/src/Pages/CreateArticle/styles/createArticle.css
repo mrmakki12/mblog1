@@ -11,3 +11,10 @@
 .form-header { 
     font-size: 3rem;
 }
+
+.delete-article {
+    background-color: red;
+    color: white;
+    outline: none;
+    padding: 20px;
+}
