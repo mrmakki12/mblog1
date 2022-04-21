@@ -24,7 +24,6 @@ export const Form4 = () => {
         // api call here
         mBlog.post(`/api/v1/articles/${id}/comments`, {article_id: id, user_name: 'TyreeckGoat', comments: comment, created: new Date().toISOString()});
         setComment('');
-        setComments([]);
     }
 
     // fetch comments 
@@ -39,7 +38,7 @@ export const Form4 = () => {
             }
         }
         fetchComments();
-    },[comments]); 
+    },[]); 
 
     return (
         <div>
