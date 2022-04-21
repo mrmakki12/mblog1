@@ -18,12 +18,17 @@ export const Form4 = () => {
     // comments already linked to article
     const [comments, setComments] = useState([]);
 
+    // made a mistake in planning so I'm going to use this 
+    // state to trigger the comments to reload
+    const [reload, setReload] = useState(0);
+
     // submit comments
     const handleSubmit = (e) => {
         e.preventDefault();
         // api call here
         mBlog.post(`/api/v1/articles/${id}/comments`, {article_id: id, user_name: 'TyreeckGoat', comments: comment, created: new Date().toISOString()});
         setComment('');
+        setReload((prev) => prev === 0 ? 1 : 0);
     }
 
     // fetch comments 
@@ -39,7 +44,7 @@ export const Form4 = () => {
         }
         fetchComments();
         console.log('useEffect called');
-    },[comment]); 
+    },[reload]); 
 
     return (
         <div>
