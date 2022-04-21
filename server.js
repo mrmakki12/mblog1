@@ -196,7 +196,7 @@ app.get('/api/v1/user/articles', authenticated, async (req, res, next) => {
 app.delete('/api/v1/articles/:id/delete', authenticated, async (req, res, next) => {
 
     // first delete comments associated with article
-    db.query(`DELECT FROM comments WHERE id = ?`, req.params.id, (err, result) => {
+    db.query(`DELECT FROM comments WHERE article_id = ?`, req.params.id, (err, result) => {
         if(err) next(err);
     });
 
