@@ -252,8 +252,8 @@ app.put('/api/v1/articles/:id/edit', authenticated, async (req, res, next) => {
  * when someone lands here we send the entry point index.html
  * and react router handles the rest
  **/ 
-app.get('/profile', authenticated, (req, res) => {
-    res.sendFile(__dirname + `./frontend/build/index.html/profile`);
+app.get('*', authenticated, (req, res) => {
+    res.sendFile(__dirname + `/frontend/build/index.html`);
 });
 
 // listen
