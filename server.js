@@ -61,15 +61,6 @@ const authenticated = (req, res, next) => {
     }
 }
 
-app.get('/', (req, res, next) => {
-    console.log(req.session.user, req.session.auth);
-    if(req.session.auth) {
-        res.sendFile(__dirname + 'frontend/build/index.html/profile');
-    } else {
-        next();
-    }
-});
-
 // login
 app.post('/api/v1/login', (req, res, next) => {
 
@@ -257,6 +248,14 @@ app.put('/api/v1/articles/:id/edit', authenticated, async (req, res, next) => {
         if(err) next(err);
         res.send(result);
     })
+});
+
+app.get('*', (req, res, next) => {
+    if(req.session.auth) {
+        res.sendFile(__dirname + 'frontend/build/index.html');
+    } else {
+        next();
+    }
 });
 
 // listen
