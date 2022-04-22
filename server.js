@@ -57,7 +57,7 @@ const authenticated = (req, res, next) => {
     if(req.session.auth) {
         next();
     } else {
-        res.redirect('/');
+        res.sendFile(__dirname + 'frontend/build/index.html');
     }
 }
 
@@ -66,11 +66,6 @@ app.post('/api/v1/login', (req, res, next) => {
 
     // get input from front
     const { username, password } = req.body;
-
-    // if user have session data destroy it
-    // if(req.session) {
-    //     res.redirect('/profile');
-    // };   
 
     try {
 
@@ -250,12 +245,15 @@ app.put('/api/v1/articles/:id/edit', authenticated, async (req, res, next) => {
     })
 });
 
-app.get('*', (req, res, next) => {
-    if(req.session.auth) {
-        res.sendFile(__dirname + 'frontend/build/index.html');
-    } else {
-        next();
-    }
+/**
+ * This allows us to navigate the react-router routes
+ * this route handles request that aren't associated with the 
+ * api which is meant only to get data
+ * when someone lands here we send the entry point index.html
+ * and react router handles the rest
+ **/ 
+app.get('*', authenticated, (req, res) => {
+    res.sendFile(__dirname + 'frontend/build/index.html');
 });
 
 // listen
