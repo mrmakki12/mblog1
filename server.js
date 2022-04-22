@@ -253,7 +253,7 @@ app.put('/api/v1/articles/:id/edit', authenticated, async (req, res, next) => {
  * and react router handles the rest
  **/ 
 app.get('/*', authenticated, (req, res) => {
-    res.sendFile(__dirname + `frontend/build/index.html`);
+    res.sendFile(__dirname + `./frontend/build/index.html`);
 });
 
 // listen
