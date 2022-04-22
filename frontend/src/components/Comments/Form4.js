@@ -25,7 +25,7 @@ export const Form4 = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // api call here
-        mBlog.post(`/api/v1/articles/${id}/comments`, {article_id: id, user_name: 'TyreeckGoat', comments: comment, created: new Date().toISOString()});
+        mBlog.post(`/api/v1/articles/${id}/comments`, {article_id: id, comments: comment, created: new Date().toISOString()});
         setComment('');
         navigate(0);
     }
