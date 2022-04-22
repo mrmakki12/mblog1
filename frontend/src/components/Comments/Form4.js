@@ -43,7 +43,7 @@ export const Form4 = () => {
         }
         fetchComments();
         console.log('useEffect called');
-    },[reload]); 
+    },[]); 
 
     return (
         <div>
