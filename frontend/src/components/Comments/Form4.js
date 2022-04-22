@@ -6,7 +6,7 @@ import mBlog from '../../API/mBlog';
 // styles
 import './styles/form4.css';
 // router dom 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export const Form4 = () => {
 
@@ -18,9 +18,8 @@ export const Form4 = () => {
     // comments already linked to article
     const [comments, setComments] = useState([]);
 
-    // made a mistake in planning so I'm going to use this 
-    // state to trigger the comments to reload
-    const [reload, setReload] = useState(0);
+    // going to use this to refresh page on submit to get new comment
+    const navigate = useNavigate();
 
     // submit comments
     const handleSubmit = (e) => {
@@ -28,7 +27,7 @@ export const Form4 = () => {
         // api call here
         mBlog.post(`/api/v1/articles/${id}/comments`, {article_id: id, user_name: 'TyreeckGoat', comments: comment, created: new Date().toISOString()});
         setComment('');
-        setReload((prev) => prev === 0 ? 1 : 0);
+        useNavigate(0);
     }
 
     // fetch comments 
