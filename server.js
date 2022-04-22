@@ -61,6 +61,14 @@ const authenticated = (req, res, next) => {
     }
 }
 
+app.get('/', (req, res, next) => {
+    if(req.session.auth) {
+        res.sendFile(__dirname + 'frontend/build/index.html/profile');
+    } else {
+        next();
+    }
+})
+
 // login
 app.post('/api/v1/login', (req, res, next) => {
 
@@ -68,9 +76,9 @@ app.post('/api/v1/login', (req, res, next) => {
     const { username, password } = req.body;
 
     // if user have session data destroy it
-    if(req.session) {
-        res.sendFile('index.html/profile');
-    };   
+    // if(req.session) {
+    //     res.redirect('/profile');
+    // };   
 
     try {
 
