@@ -1,5 +1,15 @@
+# Important Note about commit history
+<br />
+<br />
+You may have noticed that there are a bunch of commits with unintelligible messages. This was a mistake on my part. The issue was that I hosted the website and database too soon, this meant that I had to commit changes before I could see if they would work or not. This was my first full-stack project, so there was a lot I had to figure out, some of which I did by trial and error.
+
 # mblog1
+<br /> 
+<br />
 Fullstack Blog App
+<br /> 
+<br />
+
 ## Use
 <br />
 <br />
